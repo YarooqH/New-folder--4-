@@ -23,59 +23,11 @@ const controls = new OrbitControls( camera, renderer.domElement );
 controls.minDistance = 1;
 controls.maxDistance = 20;
 
-// add cube
-
 const geometry = new THREE.BoxGeometry( 1, 1, 1 );
 const material = new THREE.MeshBasicMaterial( { color: 'orange' });
 const cube = new THREE.Mesh( geometry, material );
 // scene.add( cube );
 cube.position.set(0,0,0);
-
-// let currTile = 0;
-// let horiTiles = 1;
-// let vertTiles = 6;
-
-// const map = new THREE.TextureLoader().load( './assets/MeowKnight/Meow-Knight_idle.png' );
-// map.magFilter = THREE.NearestFilter;
-// var annie = new TextureAnimator(map, 4, 4, 16, 150);
-// map.offset.x = 0.5;
-// let meVar = 0.2;
-// map.repeat.x = 0.3;
-// map.repeat.y = meVar;
-// map.repeat.set(1/horiTiles, 1/vertTiles);
-// const offsetX = (currTile % horiTiles) / horiTiles;
-// const offsetY = (vertTiles - Math.floor(currTile / horiTiles) - 1) / vertTiles;
-
-// map.offset.x = offsetX;
-// map.offset.y = offsetY;
-
-// const material1 = new THREE.SpriteMaterial( { map: map } );
-
-// const sprite = new THREE.Sprite( material1 );
-// sprite.scale.set(0.6, 1, 1);
-// scene.add( sprite );
-
-// const changeState = (a) => {
-    let maxDisplayTime = 0;
-    let elapsedTime = 0;
-    let runningTileArrayIndex = 0;
-    let playSpriteIndices = [];
-// }
-// function update(delta) {
-//     elapsedTime += delta;
-
-//     if (maxDisplayTime > 0 && elapsedTime >= maxDisplayTime) {
-//         elapsedTime = 0;
-//         runningTileArrayIndex = (runningTileArrayIndex + 1) % playSpriteIndices.length;
-//         currTile = playSpriteIndices[runningTileArrayIndex];
-
-//         // const offsetX  = (currTile % horiTiles) / horiTiles;
-//         const offsetY = (vertTiles - Math.floor(currTile / horiTiles) -1 ) / vertTiles;
-
-//         // map.offset.x = offsetX;
-//         map.offset.y = offsetY;
-//     }
-// }
 
 const flipBook = []
 const chat = new SpriteFlipbook('./assets/MeowKnight/Meow-Knight_idle.png', 1, 6, scene);
