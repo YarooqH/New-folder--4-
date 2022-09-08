@@ -88,6 +88,7 @@ function onKeyUp(event) {
     }
 }
 
+
 function animate() {
     requestAnimationFrame( animate );
     renderer.render( scene, camera );
@@ -107,6 +108,10 @@ function animate() {
         console.log("LOPPPED")
         chat.addPosition(0, -0.02, 0);
     }
+    // console.log(chat.getPosition())
+    controls.target = chat.getPosition();
+    camera.position.x = chat.getPosition().x;
+    camera.position.y = chat.getPosition().y;
     // checkBtnPress();
 };
 
