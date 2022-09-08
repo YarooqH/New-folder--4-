@@ -54,26 +54,37 @@ const checkBtnPress = () => {
 
 let leftPressed = false;
 let rightPressed = false;
+let upPressed = false;
+let downPressed = false;
 
 document.addEventListener('keydown', onKeyDown, false);
 document.addEventListener('keyup', onKeyUp, false);
 
 function onKeyDown(event) {
     // console.log('keypress');
+    // debugger
     let keyCode = event.which;
     if (keyCode == 37) { // Left arrow key
         leftPressed = true;
-    } else if (keyCode == 39) { // Right arrow key
+    } else if (keyCode == 38) {
+        upPressed = true;
+    } else if (keyCode == 39) {
         rightPressed = true;
-    }
+    } else if (keyCode == 40) { // Right arrow key
+        downPressed = true;
+    } 
 }
 
 function onKeyUp(event) {
     let keyCode = event.which;
-    if (keyCode == 37) { // Left arrow key
+    if (keyCode == 37) { // Left arrow ke
         leftPressed = false;
-    } else if (keyCode == 39) { // Right arrow key
+    } else if (keyCode == 38) {
+        upPressed = false;
+    }  else if (keyCode == 39) { // Right arrow key
         rightPressed = false;
+    } else if (keyCode == 40) {
+        downPressed = false;
     }
 }
 
@@ -86,11 +97,15 @@ function animate() {
     if (leftPressed) {
         console.log("nice")
         chat.addPosition(-0.02,0,0); 
-    }
-    // If the right arrow is pressed, move the rocket to the right
-    if (rightPressed) {
+    }  else if (rightPressed) {
         console.log("not nice")
         chat.addPosition(+0.02,0,0);
+    } else if (upPressed) {
+        console.log("hotnice")
+        chat.addPosition(0,0.02,0);
+    } else if (downPressed) {
+        console.log("LOPPPED")
+        chat.addPosition(0, -0.02, 0);
     }
     // checkBtnPress();
 };
