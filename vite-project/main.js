@@ -33,24 +33,49 @@ cube.position.set(3,0,0);
 const flipBook = []
 const chat = new SpriteFlipbook('./assets/MeowKnight/Meow-Knight_idle.png', 1, 6, scene);
 chat.loop([0,1,2,3,4,5], 1);
+// chat.position.set(0,5,0);
 flipBook.push(chat);
 
 // const spriteController = new SpriteCharacterController(camera, controls, scene);
 
 const clock = new THREE.Clock();
 
-const characterMovement = (event) => {
-        if (event.defaultPrevented) {
-            return;
-        }
-    
+const characterMovement = (event) => {    
         var key = event.key || event.keyCode;
     
         if (key === 'ArrowUp' || key === 'Up' || key === 23) {
             console.log("sad")
         }
     }
-    document.addEventListener('keyup', characterMovement);
+    
+const checkBtnPress = () => {
+    document.addEventListener('keyup', characterMovement);        
+}
+
+let leftPressed = false;
+let rightPressed = false;
+
+document.addEventListener('keydown', onKeyDown, false);
+document.addEventListener('keyup', onKeyUp, false);
+
+function onKeyDown(event) {
+    // console.log('keypress');
+    let keyCode = event.which;
+    if (keyCode == 37) { // Left arrow key
+        leftPressed = true;
+    } else if (keyCode == 39) { // Right arrow key
+        rightPressed = true;
+    }
+}
+
+function onKeyUp(event) {
+    let keyCode = event.which;
+    if (keyCode == 37) { // Left arrow key
+        leftPressed = false;
+    } else if (keyCode == 39) { // Right arrow key
+        rightPressed = false;
+    }
+}
 
 function animate() {
     requestAnimationFrame( animate );
@@ -58,6 +83,16 @@ function animate() {
     let deltaTime = clock.getDelta();
     // spriteController.update(deltaTime);
     flipBook.forEach(s => s.update(deltaTime));
+    if (leftPressed) {
+        console.log("nice")
+        chat.addPosition(-0.02,0,0); 
+    }
+    // If the right arrow is pressed, move the rocket to the right
+    if (rightPressed) {
+        console.log("not nice")
+        chat.addPosition(+0.02,0,0);
+    }
+    // checkBtnPress();
 };
 
 animate();
