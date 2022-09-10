@@ -18,6 +18,8 @@ export class SpriteFlipbook {
     playSpriteIndices = []; 
     sprite;
 
+    material;
+
     /**
      * 
      * @param spriteTexture A sprite sheet with sprite tiles
@@ -35,11 +37,11 @@ export class SpriteFlipbook {
     
         this.update(0);
     
-        const material = new THREE.SpriteMaterial({ map: this.map });
+        this.material = new THREE.SpriteMaterial({ map: this.map });
         
-        this.sprite = new THREE.Sprite(material);
+        this.sprite = new THREE.Sprite(this.material);
         
-        this.sprite.scale.set(0.15,0.15,1);
+        this.sprite.scale.set(0.2,0.2,1);
         scene.add(this.sprite);
     }
 
@@ -61,6 +63,32 @@ export class SpriteFlipbook {
         this.sprite.position.x += x;
         this.sprite.position.y += y;
         this.sprite.position.z += z;
+    }
+
+    changeSprite (spriteTexture, tilesHoriz, tilesVert) {
+        this.tilesHoriz = tilesHoriz;
+        this.tilesVert = tilesVert;
+
+        // this.spriteTexture = spriteTexture;
+        
+        this.map = new THREE.TextureLoader().load(spriteTexture);
+
+        // this.map = new THREE.TextureLoader().load(spriteTexture);
+        // this.map.magFilter = THREE.NearestFilter;   // sharp pixel sprite
+        // this.map.repeat.set( 1/tilesHoriz, 1/tilesVert );
+    
+        this.update(0);
+
+        this.material = new THREE.SpriteMaterial({ map: this.map });
+        
+        this.sprite = new THREE.Sprite(this.material);
+        
+        this.sprite.scale.set(0.15,0.15,1);
+    
+        // const material = new THREE.SpriteMaterial({ map: this.map });
+        
+        // this.sprite = new THREE.Sprite(material);
+
     }
 
     getPosition () {

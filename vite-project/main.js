@@ -24,33 +24,26 @@ const controls = new OrbitControls( camera, renderer.domElement );
 controls.minDistance = 1;
 controls.maxDistance = 20;
 
-const geometry = new THREE.BoxGeometry( 1, 1, 1 );
+const geometry = new THREE.BoxGeometry( 1, 1, -1 );
 const material = new THREE.MeshBasicMaterial( { color: 'orange' });
 const cube = new THREE.Mesh( geometry, material );
 scene.add( cube );
 cube.position.set(3,0,0);
 
 const flipBook = []
-const chat = new SpriteFlipbook('./assets/MeowKnight/Meow-Knight_idle.png', 1, 6, scene);
+var chat = new SpriteFlipbook('./assets/MeowKnight/Meow-Knight_Idle.png', 1, 6, scene);
+
 chat.loop([0,1,2,3,4,5], 1);
-// chat.position.set(0,5,0);
 flipBook.push(chat);
 
+// var charRun = new SpriteFlipbook('./assets/MeowKnight/Meow-Knight_Run.png', 1, 10, scene);
+// charRun.loop([0,1,3,4,5,6,8,9], 1);
+// flipBook.push(charRun);
+
+// chat.position.set(0,5,0);
 // const spriteController = new SpriteCharacterController(camera, controls, scene);
 
 const clock = new THREE.Clock();
-
-const characterMovement = (event) => {    
-        var key = event.key || event.keyCode;
-    
-        if (key === 'ArrowUp' || key === 'Up' || key === 23) {
-            console.log("sad")
-        }
-    }
-    
-const checkBtnPress = () => {
-    document.addEventListener('keyup', characterMovement);        
-}
 
 let leftPressed = false;
 let rightPressed = false;
@@ -85,18 +78,12 @@ function onKeyUp(event) {
         rightPressed = false;
     } else if (keyCode == 40) {
         downPressed = false;
-    }
+    }   
 }
 
-
-function animate() {
-    requestAnimationFrame( animate );
-    renderer.render( scene, camera );
-    let deltaTime = clock.getDelta();
-    // spriteController.update(deltaTime);
-    flipBook.forEach(s => s.update(deltaTime));
+function checkKeys() {
     if (leftPressed) {
-        console.log("nice")
+        console.log("nice");
         chat.addPosition(-0.02,0,0); 
     }  else if (rightPressed) {
         console.log("not nice")
@@ -108,10 +95,25 @@ function animate() {
         console.log("LOPPPED")
         chat.addPosition(0, -0.02, 0);
     }
+}
+
+
+
+function animate() {
+    requestAnimationFrame( animate );
+    renderer.render( scene, camera );
+
+    let deltaTime = clock.getDelta();
+    // spriteController.update(deltaTime);
+    flipBook.forEach(s => s.update(deltaTime));
+
+    checkKeys();
 
     controls.target = chat.getPosition();
     camera.position.x = chat.getPosition().x;
     camera.position.y = chat.getPosition().y;
+
+    
 };
 
 animate();
