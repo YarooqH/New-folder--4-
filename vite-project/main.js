@@ -3,6 +3,7 @@ import { Sprite } from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import { SpriteFlipbook } from './SpriteFlipbook';
 import { SpriteCharacterController } from './SpriteCharacterControl';
+// import add from 'ipfs-http-client/src/files-regular/add';
 // import * as AMMO from './node_modules/ammo-js/ammo-wasm.js';
 // import * as ENABLE from 'enable3d'
 
@@ -45,6 +46,10 @@ chat.loop([0,1,2,3,4,5], 1);
 flipBook.push(chat);
 chat.setPosition(-2.5,-1,0);
 
+
+addImg('./assets/background/Gr.png', 0, 0);
+
+
 // var charRun = new SpriteFlipbook('./assets/MeowKnight/Meow-Knight_Run.png', 1, 10, scene);
 // charRun.loop([0,1,3,4,5,6,8,9], 1);
 // flipBook.push(charRun);
@@ -65,6 +70,25 @@ let currentPage = 1;
 
 document.addEventListener('keydown', onKeyDown, false);
 document.addEventListener('keyup', onKeyUp, false);
+
+function addImg(src, x, y){
+
+    var loader = new THREE.TextureLoader();
+    var imgMaterial = new THREE.MeshLambertMaterial({
+    map: loader.load(src)
+    });
+    var imgGeometry = new THREE.PlaneGeometry(2, 10*.2);
+    var mesh = new THREE.Mesh(imgGeometry, imgMaterial);
+    mesh.position.set(x,y,-0.5);
+    scene.add(mesh);
+
+
+    let lightIntensity = 1;
+    var light = new THREE.PointLight( 0xffffff, lightIntensity , 0 );
+    light.position.set(x, y, 100 );
+    scene.add(light)
+
+}
 
 function onKeyDown(event) {
     // console.log('keypress');
@@ -128,6 +152,7 @@ function newPage() {
         chat.setPosition(12,-1,0);
         controls.target = chat.getPosition();
         camera.position.x = chat.getPosition().x+2.5;
+        addImg('./assets/background/group-names.png', 14.5,0);
         cube.position.set(12,0,0);
         // camera.position.y = chat.getPosition().y;
         pageEnd[0] = false;
@@ -137,6 +162,7 @@ function newPage() {
         controls.target = chat.getPosition();
         camera.position.x = chat.getPosition().x+2.5;
         cube1.position.set(24,0,0);
+        addImg('./assets/background/new.png', 27,0);
         // camera.position.y = chat.getPosition().y;
         pageEnd[1] = false;
         currentPage = 3;
