@@ -91,27 +91,25 @@ function addImg(src, x, y){
 }
 
 function onKeyDown(event) {
-    // console.log('keypress');
-    // debugger
     let keyCode = event.which;
-    if (keyCode == 37) { // Left arrow key
+    if (keyCode == 37) { 
         leftPressed = true;
     } else if (keyCode == 38) {
         upPressed = true;
     } else if (keyCode == 39) {
         rightPressed = true;
-    } else if (keyCode == 40) { // Right arrow key
+    } else if (keyCode == 40) { 
         downPressed = true;
     } 
 }
 
 function onKeyUp(event) {
     let keyCode = event.which;
-    if (keyCode == 37) { // Left arrow ke
+    if (keyCode == 37) { 
         leftPressed = false;
     } else if (keyCode == 38) {
         upPressed = false;
-    }  else if (keyCode == 39) { // Right arrow key
+    }  else if (keyCode == 39) {
         rightPressed = false;
     } else if (keyCode == 40) {
         downPressed = false;
@@ -138,9 +136,7 @@ function checkKeys() {
 
 
 function checkPageEnd(currPosition, currPage) {
-    // console.log(currPosition);
     if(currPosition > 2 && currPage == 1){
-        // console.log("BOOM BOOM");
         pageEnd[0] = true;
     } else if (currPosition > 16 && currPage == 2){
         pageEnd[1] = true;
@@ -154,7 +150,6 @@ function newPage() {
         camera.position.x = chat.getPosition().x+2.5;
         addImg('./assets/background/group-names.png', 14.5,0);
         cube.position.set(12,0,0);
-        // camera.position.y = chat.getPosition().y;
         pageEnd[0] = false;
         currentPage = 2;
     } else if (pageEnd[1]){
@@ -163,7 +158,6 @@ function newPage() {
         camera.position.x = chat.getPosition().x+2.5;
         cube1.position.set(24,0,0);
         addImg('./assets/background/new.png', 27,0);
-        // camera.position.y = chat.getPosition().y;
         pageEnd[1] = false;
         currentPage = 3;
     }
@@ -175,19 +169,11 @@ function animate() {
     renderer.render( scene, camera );
 
     let deltaTime = clock.getDelta();
-    // spriteController.update(deltaTime);
     flipBook.forEach(s => s.update(deltaTime));
 
     checkKeys();
     checkPageEnd(currentPositon, currentPage);
-    newPage();
-    
-
-    // controls.target = chat.getPosition();
-    // camera.position.x = chat.getPosition().x+4;
-    // camera.position.y = chat.getPosition().y;
-
-    
+    newPage();    
 };
 
 animate();
