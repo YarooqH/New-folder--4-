@@ -1,11 +1,7 @@
 import * as THREE from 'three'
-import { Sprite } from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import { SpriteFlipbook } from './SpriteFlipbook';
-import { SpriteCharacterController } from './SpriteCharacterControl';
-// import add from 'ipfs-http-client/src/files-regular/add';
-// import * as AMMO from './node_modules/ammo-js/ammo-wasm.js';
-// import * as ENABLE from 'enable3d'
+
 
 const camera = new THREE.PerspectiveCamera( 30, window.innerWidth / window.innerHeight, 0.1, 500, 1000 );
 camera.position.set( 0, 0, 5);
