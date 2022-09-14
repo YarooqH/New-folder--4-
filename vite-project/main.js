@@ -42,16 +42,7 @@ chat.loop([0,1,2,3,4,5], 1);
 flipBook.push(chat);
 chat.setPosition(-2.5,-1,0);
 
-
 addImg('./assets/background/Gr.png', 0, 0);
-
-
-// var charRun = new SpriteFlipbook('./assets/MeowKnight/Meow-Knight_Run.png', 1, 10, scene);
-// charRun.loop([0,1,3,4,5,6,8,9], 1);
-// flipBook.push(charRun);
-
-// chat.position.set(0,5,0);
-// const spriteController = new SpriteCharacterController(camera, controls, scene);
 
 const clock = new THREE.Clock();
 
@@ -130,7 +121,6 @@ function checkKeys() {
     }
 }
 
-
 function checkPageEnd(currPosition, currPage) {
     if(currPosition > 2 && currPage == 1){
         pageEnd[0] = true;
@@ -159,9 +149,19 @@ function newPage() {
     }
 }
 
+let fpsLimiter;
+
+let count = 0;
+let heading = document.getElementById("heading");
 
 function animate() {
-    requestAnimationFrame( animate );
+    setTimeout( () => {
+
+        requestAnimationFrame( animate );
+        count++;
+
+    }, 1000 / 40 );
+    // requestAnimationFrame( animate );
     renderer.render( scene, camera );
 
     let deltaTime = clock.getDelta();
@@ -170,6 +170,14 @@ function animate() {
     checkKeys();
     checkPageEnd(currentPositon, currentPage);
     newPage();    
+
 };
 
-animate();
+// setInterval(() => {
+    animate();
+    // }, 1000);
+    
+setInterval(() => {
+    heading.innerText = count + ' fps';
+    count = 0;
+}, 1000)
