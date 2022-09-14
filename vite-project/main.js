@@ -149,20 +149,31 @@ function newPage() {
     }
 }
 
-let fpsLimiter;
+let fpsLimiter = 60;
 
 let count = 0;
 let heading = document.getElementById("heading");
+let button = document.getElementById("btn");
+
+button.addEventListener("click", () => {
+    fpsLimiter = parseInt(window.prompt("Enter FPS: "));
+})
+
+let delta = 0
+let interval = 1 / 60;
 
 function animate() {
-    setTimeout( () => {
+    requestAnimationFrame( animate );
 
-        requestAnimationFrame( animate );
+    interval = 1 / fpsLimiter;
+
+    delta += clock.getDelta();
+
+    if (delta > interval) {
+        renderer.render( scene, camera );    
+        delta = delta % interval;
         count++;
-
-    }, 1000 / 40 );
-    // requestAnimationFrame( animate );
-    renderer.render( scene, camera );
+    }
 
     let deltaTime = clock.getDelta();
     flipBook.forEach(s => s.update(deltaTime));
@@ -170,13 +181,10 @@ function animate() {
     checkKeys();
     checkPageEnd(currentPositon, currentPage);
     newPage();    
-
 };
 
-// setInterval(() => {
-    animate();
-    // }, 1000);
-    
+animate();
+
 setInterval(() => {
     heading.innerText = count + ' fps';
     count = 0;
