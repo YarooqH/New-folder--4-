@@ -40,6 +40,7 @@ var chat = new SpriteFlipbook('./assets/MeowKnight/Meow-Knight_Idle.png', 1, 6, 
 
 chat.loop([0,1,2,3,4,5], 1);
 flipBook.push(chat);
+
 chat.setPosition(-2.5,-1,0);
 
 addImg('./assets/background/Gr.png', 0, 0);
@@ -59,7 +60,6 @@ document.addEventListener('keydown', onKeyDown, false);
 document.addEventListener('keyup', onKeyUp, false);
 
 function addImg(src, x, y){
-
     var loader = new THREE.TextureLoader();
     var imgMaterial = new THREE.MeshLambertMaterial({
     map: loader.load(src)
@@ -164,18 +164,18 @@ let interval = 1 / 60;
 
 function animate() {
     requestAnimationFrame( animate );
+    let deltaTime = clock.getDelta();
 
     interval = 1 / fpsLimiter;
-
-    delta += clock.getDelta();
-
+    
+    delta += deltaTime;
+    
     if (delta > interval) {
         renderer.render( scene, camera );    
         delta = delta % interval;
         count++;
     }
-
-    let deltaTime = clock.getDelta();
+    
     flipBook.forEach(s => s.update(deltaTime));
 
     checkKeys();
