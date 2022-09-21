@@ -105,18 +105,14 @@ function onKeyUp(event) {
 
 function checkKeys() {
     if (leftPressed) {
-        console.log("nice");
         chat.addPosition(-0.02,0,0); 
         currentPositon = Math.floor(chat.getPosition().x);
     }  else if (rightPressed) {
-        console.log("not nice")
-        chat.addPosition(+0.1,0,0);
+        chat.addPosition(+0.06,0,0);
         currentPositon = Math.floor(chat.getPosition().x);
     } else if (upPressed) {
-        console.log("hotnice")
         chat.addPosition(0,0.02,0);
     } else if (downPressed) {
-        console.log("LOPPPED")
         chat.addPosition(0, -0.02, 0);
     }
 }
