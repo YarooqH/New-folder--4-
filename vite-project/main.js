@@ -43,6 +43,16 @@ flipBook.push(chat);
 
 chat.setPosition(-2.5,-1,0);
 
+var chat1 = new SpriteFlipbook('./assets/MeowKnight/Meow-Knight_Run.png', 1, 10, scene);
+chat1.loop([0,1,3,4,5,6,8,9], 1);
+flipBook.push(chat1);
+chat1.setPosition(14.5,0.5,0);
+
+var chat2 = new SpriteFlipbook('./assets/MeowKnight/Meow-Knight_Death.png', 1, 6, scene);
+chat2.loop([0,1,2,3,4,5], 1);
+flipBook.push(chat2);
+chat2.setPosition(27,0,0);
+
 addImg('./assets/background/Gr.png', 0, 0);
 
 const clock = new THREE.Clock();
@@ -139,7 +149,7 @@ function newPage() {
         controls.target = chat.getPosition();
         camera.position.x = chat.getPosition().x+2.5;
         cube1.position.set(24,0,0);
-        addImg('./assets/background/new.png', 27,0);
+        // addImg('./assets/background/new.png', 27,0);
         pageEnd[1] = false;
         currentPage = 3;
     }
