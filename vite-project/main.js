@@ -1,4 +1,5 @@
 import * as THREE from 'three'
+import { VideoTexture } from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import { SpriteFlipbook } from './SpriteFlipbook';
 
@@ -48,10 +49,27 @@ chat1.loop([0,1,3,4,5,6,8,9], 1);
 flipBook.push(chat1);
 chat1.setPosition(14.5,0.5,0);
 
-var chat2 = new SpriteFlipbook('./assets/MeowKnight/Meow-Knight_Death.png', 1, 6, scene);
-chat2.loop([0,1,2,3,4,5], 1);
+var chat2 = new SpriteFlipbook('./assets/MeowKnight/Meow-Knight_Take_Damage.png', 1, 3, scene);
+chat2.loop([0,1,2], 1);
 flipBook.push(chat2);
-chat2.setPosition(27,0,0);
+chat2.setPosition(26.8,0,0);
+
+// let video = document.getElementById('video');
+// let videoTexture = new THREE.VideoTexture(video);
+
+// videoTexture.minFilter = THREE.LinearFilter;
+// videoTexture.magFilter = THREE.LinearFilter;
+
+// var videoMat = new THREE.MeshBasicMaterial({
+//     map: videoTexture,
+//     side: THREE.FrontSide,
+//     toneMapped: false,
+// })
+
+// let videoGeometry = new THREE.PlaneGeometry(5,5);
+// let videoPlane = new THREE.Mesh(videoGeometry, videoMat);
+
+// scene.add(videoPlane);
 
 addImg('./assets/background/Gr.png', 0, 0);
 
@@ -68,6 +86,13 @@ let currentPage = 1;
 
 document.addEventListener('keydown', onKeyDown, false);
 document.addEventListener('keyup', onKeyUp, false);
+
+function addAudio() {
+    let audio = new Audio('../assets/sounds/rpg.mp3').play();
+    audio.loop = 1;
+}
+
+addAudio();
 
 function addImg(src, x, y){
     var loader = new THREE.TextureLoader();
@@ -155,6 +180,8 @@ function newPage() {
     }
 }
 
+const rainMaterial = new THREE.MeshBasicMaterial( { color: '#237DE3' } );
+
 let fpsLimiter = 60;
 
 let count = 0;
@@ -176,13 +203,54 @@ function animate() {
     
     delta += deltaTime;
     
+    
+    flipBook.forEach(s => s.update(deltaTime));
+    
+    function getRndInteger(min, max) {
+        return Math.floor(Math.random() * (max - min)) + min;
+    }
+    
+    const shape = new THREE.Shape();
+    const points = []
+    points.push(new THREE.Vector2( -0.045, 0 ));
+    points.push(new THREE.Vector2( 0, -0.055 ));
+    points.push(new THREE.Vector2( 0.045, 0 ));
+    points.push(new THREE.Vector2( 0, 0.1 ));
+    shape.moveTo(0,0.1);
+    shape.splineThru(points)
+    // Rain drop Geometry and Material
+    const rainGeometry = new THREE.ShapeGeometry( shape );
+    // const material = new THREE.MeshBasicMaterial( { color: '#237DE3' } );
+    // const drop = new THREE.Mesh( geometry, material ) ;
+    // scene.add( drop );
+    // rainDrops.push(drop);
+    
+    let rainDrops = []
+    
+    for(let i=0; i<=2; i++){
+        // rainDrops.push(drop);
+        // const drop = new THREE.Mesh( geometry, material ) ;
+        rainDrops.push(new THREE.Mesh( rainGeometry, rainMaterial ));
+        
+        scene.add(rainDrops[i]);
+        
+        let posX = getRndInteger(-8,8);
+        let posY = getRndInteger(-4,4);
+        
+        rainDrops[i].position.set(posX,posY,0.1);            
+    }
+    
+    
     if (delta > interval) {
         renderer.render( scene, camera );    
         delta = delta % interval;
         count++;
     }
-    
-    flipBook.forEach(s => s.update(deltaTime));
+    // renderer.render( scene, camera );
+
+    for(let i=0; i<=2;i++){
+        scene.remove(rainDrops[i])
+    }
 
     checkKeys();
     checkPageEnd(currentPositon, currentPage);
