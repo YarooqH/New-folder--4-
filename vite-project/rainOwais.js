@@ -36,8 +36,6 @@ const playAudio = () => {
 }
 
 playAudio();
-// rainAudio.volume = 0.01;
-// rainAudio.play();
 const material = new THREE.MeshBasicMaterial( { color: '#237DE3' } );
 
 function animate() {
