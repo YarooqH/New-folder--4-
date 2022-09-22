@@ -65,21 +65,6 @@ export class SpriteFlipbook {
         this.sprite.position.z += z;
     }
 
-    changeSprite (spriteTexture, tilesHoriz, tilesVert) {
-        this.tilesHoriz = tilesHoriz;
-        this.tilesVert = tilesVert;
-        
-        this.map = new THREE.TextureLoader().load(spriteTexture);
-    
-        this.update(0);
-
-        this.material = new THREE.SpriteMaterial({ map: this.map });
-        
-        this.sprite = new THREE.Sprite(this.material);
-        
-        this.sprite.scale.set(0.15,0.15,1);
-    }
-
     getPosition () {
         return this.sprite.position;
     }
