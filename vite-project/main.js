@@ -54,23 +54,6 @@ chat2.loop([0,1,2], 1);
 flipBook.push(chat2);
 chat2.setPosition(26.8,0,0);
 
-// let video = document.getElementById('video');
-// let videoTexture = new THREE.VideoTexture(video);
-
-// videoTexture.minFilter = THREE.LinearFilter;
-// videoTexture.magFilter = THREE.LinearFilter;
-
-// var videoMat = new THREE.MeshBasicMaterial({
-//     map: videoTexture,
-//     side: THREE.FrontSide,
-//     toneMapped: false,
-// })
-
-// let videoGeometry = new THREE.PlaneGeometry(5,5);
-// let videoPlane = new THREE.Mesh(videoGeometry, videoMat);
-
-// scene.add(videoPlane);
-
 addImg('./assets/background/Gr.png', 0, 0);
 
 const clock = new THREE.Clock();
@@ -174,7 +157,6 @@ function newPage() {
         controls.target = chat.getPosition();
         camera.position.x = chat.getPosition().x+2.5;
         cube1.position.set(24,0,0);
-        // addImg('./assets/background/new.png', 27,0);
         pageEnd[1] = false;
         currentPage = 3;
     }
@@ -218,18 +200,12 @@ function animate() {
     points.push(new THREE.Vector2( 0, 0.1 ));
     shape.moveTo(0,0.1);
     shape.splineThru(points)
-    // Rain drop Geometry and Material
+
     const rainGeometry = new THREE.ShapeGeometry( shape );
-    // const material = new THREE.MeshBasicMaterial( { color: '#237DE3' } );
-    // const drop = new THREE.Mesh( geometry, material ) ;
-    // scene.add( drop );
-    // rainDrops.push(drop);
-    
+
     let rainDrops = []
     
     for(let i=0; i<=2; i++){
-        // rainDrops.push(drop);
-        // const drop = new THREE.Mesh( geometry, material ) ;
         rainDrops.push(new THREE.Mesh( rainGeometry, rainMaterial ));
         
         scene.add(rainDrops[i]);
@@ -246,7 +222,6 @@ function animate() {
         delta = delta % interval;
         count++;
     }
-    // renderer.render( scene, camera );
 
     for(let i=0; i<=2;i++){
         scene.remove(rainDrops[i])
