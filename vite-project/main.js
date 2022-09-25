@@ -15,8 +15,8 @@ renderer.setSize( window.innerWidth, window.innerHeight );
 document.body.appendChild( renderer.domElement );
 
 window.addEventListener( 'resize', () => {
-    renderer.setSize(window.innerWidth, window.innerHeight)
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 }
 )
 
@@ -80,7 +80,7 @@ addAudio();
 function addImg(src, x, y){
     var loader = new THREE.TextureLoader();
     var imgMaterial = new THREE.MeshLambertMaterial({
-    map: loader.load(src)
+        map: loader.load(src)
     });
     var imgGeometry = new THREE.PlaneGeometry(2, 10*.2);
     var mesh = new THREE.Mesh(imgGeometry, imgMaterial);
@@ -91,8 +91,7 @@ function addImg(src, x, y){
     let lightIntensity = 1;
     var light = new THREE.PointLight( 0xffffff, lightIntensity , 0 );
     light.position.set(x, y, 100 );
-    scene.add(light)
-
+    scene.add(light);
 }
 
 function onKeyDown(event) {
@@ -123,13 +122,13 @@ function onKeyUp(event) {
 
 function checkKeys() {
     if (leftPressed) {
-        chat.addPosition(-0.02,0,0); 
+        chat.addPosition(-0.02, 0, 0); 
         currentPositon = Math.floor(chat.getPosition().x);
     }  else if (rightPressed) {
-        chat.addPosition(+0.06,0,0);
+        chat.addPosition(+0.06, 0, 0);
         currentPositon = Math.floor(chat.getPosition().x);
     } else if (upPressed) {
-        chat.addPosition(0,0.02,0);
+        chat.addPosition(0, 0.02, 0);
     } else if (downPressed) {
         chat.addPosition(0, -0.02, 0);
     }
@@ -144,25 +143,23 @@ function checkPageEnd(currPosition, currPage) {
 }
 
 function newPage() {
-    if(pageEnd[0]){
-        chat.setPosition(12,-1,0);
+    if( pageEnd[0] ){
+        chat.setPosition(12, -1, 0);
         controls.target = chat.getPosition();
-        camera.position.x = chat.getPosition().x+2.5;
-        addImg('./assets/background/group-names.png', 14.5,0);
-        cube.position.set(12,0,0);
+        camera.position.x = chat.getPosition().x + 2.5;
+        addImg('./assets/background/group-names.png', 14.5, 0);
+        cube.position.set(12, 0, 0);
         pageEnd[0] = false;
         currentPage = 2;
-    } else if (pageEnd[1]){
-        chat.setPosition(24,-1,0);
+    } else if ( pageEnd[1] ){
+        chat.setPosition(24, -1, 0);
         controls.target = chat.getPosition();
-        camera.position.x = chat.getPosition().x+2.5;
-        cube1.position.set(24,0,0);
+        camera.position.x = chat.getPosition().x + 2.5;
+        cube1.position.set(24, 0, 0);
         pageEnd[1] = false;
         currentPage = 3;
     }
 }
-
-const rainMaterial = new THREE.MeshBasicMaterial( { color: '#237DE3' } );
 
 let fpsLimiter = 60;
 
@@ -185,46 +182,12 @@ function animate() {
     
     delta += deltaTime;
     
-    
-    flipBook.forEach(s => s.update(deltaTime));
-    
-    function getRndInteger(min, max) {
-        return Math.floor(Math.random() * (max - min)) + min;
-    }
-    
-    const shape = new THREE.Shape();
-    const points = []
-    points.push(new THREE.Vector2( -0.045, 0 ));
-    points.push(new THREE.Vector2( 0, -0.055 ));
-    points.push(new THREE.Vector2( 0.045, 0 ));
-    points.push(new THREE.Vector2( 0, 0.1 ));
-    shape.moveTo(0,0.1);
-    shape.splineThru(points)
-
-    const rainGeometry = new THREE.ShapeGeometry( shape );
-
-    let rainDrops = []
-    
-    for(let i=0; i<=2; i++){
-        rainDrops.push(new THREE.Mesh( rainGeometry, rainMaterial ));
-        
-        scene.add(rainDrops[i]);
-        
-        let posX = getRndInteger(-8,8);
-        let posY = getRndInteger(-4,4);
-        
-        rainDrops[i].position.set(posX,posY,0.1);            
-    }
-    
+    flipBook.forEach(s => s.update(deltaTime));    
     
     if (delta > interval) {
         renderer.render( scene, camera );    
         delta = delta % interval;
         count++;
-    }
-
-    for(let i=0; i<=2;i++){
-        scene.remove(rainDrops[i])
     }
 
     checkKeys();
