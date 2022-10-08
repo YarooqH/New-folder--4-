@@ -55,11 +55,6 @@ function animate() {
     shape.splineThru(points)
     // Rain drop Geometry and Material
     const geometry = new THREE.ShapeGeometry( shape );
-    // const material = new THREE.MeshBasicMaterial( { color: '#237DE3' } );
-    // const drop = new THREE.Mesh( geometry, material ) ;
-    // scene.add( drop );
-    // rainDrops.push(drop);
-
     let rainDrops = []
 
     for(let i=0; i<=50; i++){
