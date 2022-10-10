@@ -33,12 +33,6 @@ var coordinatesList = [
   var shape = new THREE.Mesh(geomShape, matShape);
   scene.add(shape);
   
-  // points
-//   var geom = new THREE.BufferGeometry().setFromPoints(coordinatesList);
-//   var matPoints = new THREE.PointsMaterial({size: 0.55, color: "pink"});
-//   var points = new THREE.Points(geom, matPoints);
-//   scene.add(points);
-  
 
 function animate(){        
     requestAnimationFrame(animate);
