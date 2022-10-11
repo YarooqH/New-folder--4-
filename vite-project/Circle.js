@@ -19,8 +19,7 @@ window.addEventListener('resize', () => {
     renderer.setSize(window.innerWidth,window.innerHeight);
     camera.aspect=window.innerWidth/window.innerHeight; 
 })
-    
-// START circle
+
 const geometry = new THREE.BufferGeometry();
 const smoothness = 50;
 

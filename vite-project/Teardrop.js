@@ -26,8 +26,6 @@ var coordinatesList = [
     new THREE.Points(3, 3)
   ];
   
-  
-  // shape
   var geomShape = new THREE.ShapeBufferGeometry(new THREE.Shape(coordinatesList));
   var matShape = new THREE.MeshBasicMaterial({color:"blue"});
   var shape = new THREE.Mesh(geomShape, matShape);

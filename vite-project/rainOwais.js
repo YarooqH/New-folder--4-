@@ -58,8 +58,6 @@ function animate() {
     let rainDrops = []
 
     for(let i=0; i<=50; i++){
-        // rainDrops.push(drop);
-        // const drop = new THREE.Mesh( geometry, material ) ;
         rainDrops.push(new THREE.Mesh( geometry, material ));
         
         scene.add(rainDrops[i]);

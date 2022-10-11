@@ -22,7 +22,6 @@ controls.minDistance = 1;
 controls.maxDistance = 40;
 
 let light = new THREE.DirectionalLight(0xffffff, 1);
-// light.position.setScalar(1);
 scene.add(light, new THREE.AmbientLight(0xffffff, 0.5));
 
 let g = new THREE.IcosahedronGeometry(5, 3);
