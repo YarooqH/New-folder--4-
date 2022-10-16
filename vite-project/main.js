@@ -1,5 +1,5 @@
 import * as THREE from 'three'
-import { VideoTexture } from 'three';
+// import { VideoTexture } from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import { SpriteFlipbook } from './SpriteFlipbook';
 
